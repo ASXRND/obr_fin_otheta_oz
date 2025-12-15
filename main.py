@@ -16,6 +16,7 @@ from modules.rascheti_oz.drugie_uslugi import drugie_uslugi_main
 from modules.rascheti_oz.prochie_nachisleniya import prochie_nachisleniya_main
 from modules.rascheti_oz.vozvrati import vozvrati_main
 from modules.rascheti_oz.nachisleniya import nachisleniya_main
+from modules.rascheti_oz.kol_vo_prod_ed import kol_vo_prod_ed_main
 import importlib
 import inspect
 from dotenv import load_dotenv
@@ -74,6 +75,8 @@ def zapusk_otcheta():
     vozvrati_main()
     # Начисления
     nachisleniya_main()
+    # Количество проданных единиц
+    kol_vo_prod_ed_main()
 
 def main():
     # заглушка
