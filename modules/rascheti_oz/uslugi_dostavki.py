@@ -89,7 +89,17 @@ def get_drop_off():
     conn.close()
     return result
 
-def uslugi_dostavki_main():
+# Сумируем все другие услуги
+def uslugi_dostavki_itog_main():
+    return (
+        get_logistika()
+        + get_obrab_vozvratov()
+        + get_obr_otmen()
+        + get_obrat_logistika()
+        + get_drop_off()
+    )
+
+def uslugi_dostavki_main(silent=False):
     logistika = get_logistika()
     obrab_vozvratov = get_obrab_vozvratov()
     obr_otmen = get_obr_otmen()
@@ -101,9 +111,14 @@ def uslugi_dostavki_main():
     total_sales = logistika + obrab_vozvratov + obr_otmen + obr_ligistika + drop_off
     # Итого по возвратам
     itog = total_sales
-    print("\n================= УСЛУГИ ДОСТАВКИ =================", "\n")
-    print("Сумма:", itog, "\n")
-    print("Услуги доставки:","\n", "\n Логистика", logistika, "\n Обработка возвратов Ozon", obrab_vozvratov, "\n Обработка отменённых и невостребованных товаров", obr_otmen, "\n Обратная логистика", obr_ligistika, "\n Обработка отправления Drop-off (ПВЗ)", drop_off, "\n")
-    return itog  # возвращаем переменную itog
+    if not silent:
+        print("\n================= УСЛУГИ ДОСТАВКИ =================")
+        print("Сумма:", itog, "\n")
+        print( "", "Услуги доставки:", "Логистика", logistika, "\n", 
+              "Услуги доставки:", "Обработка возвратов Ozon", obrab_vozvratov, "\n",  
+              "Услуги доставки:", "Обработка отменённых и невостребованных товаров", obr_otmen, "\n",
+              "Услуги доставки:", "Обратная логистика", obr_ligistika, "\n",
+              "Услуги доставки:", "Обработка отправления Drop-off (ПВЗ)", drop_off)
+    
   
 

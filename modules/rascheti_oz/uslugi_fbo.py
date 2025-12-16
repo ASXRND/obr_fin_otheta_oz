@@ -41,17 +41,30 @@ def get_kros_doking():
     result = cursor.fetchone()[0]
     conn.close()
     return result
+# Сумируем все услуги FBO
+def uslugi_fbo_itog_main():
+    return (
+        get_bron_mesta()
+        + get_kros_doking()
+    )
 
 # ЗАПУСК ФУНКЦИИ
 def uslugi_fbo_main():
     bron_mesta = get_bron_mesta()
     kros_doking = get_kros_doking()
+
+    itog = (
+        bron_mesta
+        + kros_doking
+    )
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
     # Итого по продажам
-    itog = bron_mesta + kros_doking
-    print("\n================= УСЛУГИ FBO =================", "\n")
+    print("\n================= УСЛУГИ FBO =================")
     print("Сумма:", itog, "\n")
-    print("Услуги FBO:","\n", " \n Бронирование места и персонала для поставки с неполным составом в составе грузоместа", bron_mesta, "\n")
-    print("Услуги FBO", "\n",  " \n Кросс-докинг", kros_doking)
-    return itog  # возвращаем переменную itog
+    print("Услуги FBO:", "Бронирование места и персонала для поставки с неполным составом в составе грузоместа", bron_mesta)
+    print("Услуги FBO:", "Кросс-докинг", kros_doking)
+    
+# if __name__ == "__main__":
+#     uslugi_fbo_main()
+#     uslugi_fbo_itog_main()    

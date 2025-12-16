@@ -41,17 +41,26 @@ def get_util_tovara():
     result = cursor.fetchone()[0]
     conn.close()
     return result
-
+# Сумируем все другие услуги
+def drugie_uslugi_itog_main():
+    return (
+        get_obr_oper_oh_prod()
+        + get_util_tovara()
+    )
 # ЗАПУСК ФУНКЦИИ
-def drugie_uslugi_main():
+def drugie_uslugi_main(silent=False):
     obr_oper_oh_prod = get_obr_oper_oh_prod()
     util_tovara = get_util_tovara()
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
     # Итого по продажам
-    itog = obr_oper_oh_prod + util_tovara
-    print("\n================= ДРУГИЕ УСЛУГИ =================", "\n")
-    print("Сумма:", itog, "\n")
-    print("Другие услуги:","\n", " \n Обработка операционных ошибок продавца: отгрузка в нерекомендованный слот", obr_oper_oh_prod, "\n")
-    print("Другие услуги:", "\n",  " \n Утилизация товара: Автоутилизация со стока", util_tovara, "\n")
-    return itog  # возвращаем переменную itog
+    itog = (
+        obr_oper_oh_prod
+        + util_tovara
+    )
+    if not silent:
+        print("\n================= ДРУГИЕ УСЛУГИ =================")
+        print("Сумма:", itog, "\n")
+        print("Другие услуги:", "Обработка операционных ошибок продавца: отгрузка в нерекомендованный слот", obr_oper_oh_prod)
+        print("Другие услуги:", "Утилизация товара: Автоутилизация со стока", util_tovara)
+    

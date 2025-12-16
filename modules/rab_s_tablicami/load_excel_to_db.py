@@ -65,6 +65,9 @@ def load_excel_to_db(db_name, excel_file, table_name, skiprows=2):
     df.columns = columns
     df = df.where(pd.notnull(df), None)  # NaN → None
 
+    # Заполняем пустые id_accrual
+    df['id_accrual'] = df['id_accrual'].fillna('N/A')
+
     # Фильтруем строки с пустыми обязательными полями
     df = df.dropna(subset=['id_accrual', 'accrual_date'])
 

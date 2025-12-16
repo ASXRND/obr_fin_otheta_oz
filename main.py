@@ -17,6 +17,10 @@ from modules.rascheti_oz.prochie_nachisleniya import prochie_nachisleniya_main
 from modules.rascheti_oz.vozvrati import vozvrati_main
 from modules.rascheti_oz.nachisleniya import nachisleniya_main
 from modules.rascheti_oz.kol_vo_prod_ed import kol_vo_prod_ed_main
+from modules.rascheti_oz.na_pc import na_pc_main
+from modules.rascheti_oz.pribil import pribil_main
+from modules.rascheti_oz.nalog import nalog_main
+from modules.rascheti_oz.v_karman import v_karman_main
 import importlib
 import inspect
 from dotenv import load_dotenv
@@ -26,9 +30,11 @@ from pathlib import Path
 
 load_dotenv()
 
+
+
 # Проверяем наличие переменных окружения
 # Список нужных переменных
-required_vars = ["TABLE_NAME", "DB_NAME", "DB_NAME_CREATE" , "TABLE_NAME_CREATE", "EXCEL_FILE"]
+required_vars = ["TABLE_NAME", "DB_NAME", "DB_NAME_CREATE" , "TABLE_NAME_CREATE", "EXCEL_FILE", "PERIOD"]
 # Проверяем их наличие
 missing_vars = [var for var in required_vars if os.getenv(var) is None]
 missing_vars = [var for var in required_vars if os.getenv(var) is None]
@@ -37,6 +43,7 @@ if missing_vars:
     print(f"ВНИМАНИЕ! Не найдены переменные окружения: {missing_vars}")
     exit(1)
 
+period = os.getenv("PERIOD")
 # Название рабочей таблицы которая уже есть в базе 
 table_name = os.getenv("TABLE_NAME")
 # имя рабочей базы данных
@@ -48,6 +55,10 @@ table_name_create = os.getenv("TABLE_NAME_CREATE")
 excel_file = os.getenv('EXCEL_FILE')
 # print(f"Все переменные = {table_name}, {db_name}, {db_name_create}, {table_name_create}, {excel_file} ок")
 
+start, end = period.split("-")
+start_date = f"{start[6:]}-{start[3:5]}-{start[:2]}"  # 2025-11-01
+end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
+
 def zapusk_otcheta():
     # Продажи и возвраты
     proda_i_vozvrati_main()
@@ -57,32 +68,50 @@ def zapusk_otcheta():
     programmi_partnerov_main()
     # Баллы за скидки
     balli_za_skidki_main()
+    # Начисления
+    nachisleniya_main()
     # Вознаграждения OZON
     voznagr_ozon_main()
-    # Услуги доставки
-    uslugi_dostavki_main()
-    # Услуги FBO
-    uslugi_fbo_main()
     # Услуги агентов
     uslugi_agentov_main()
     # Продвижение и реклама
     prod_i_reklama_main()
+    # Услуги доставки
+    uslugi_dostavki_main()
+    # Услуги FBO
+    uslugi_fbo_main()
     # Другие услуги
     drugie_uslugi_main()
-    # Прочие начисления
-    prochie_nachisleniya_main()
-    # Возвраты
-    vozvrati_main()
-    # Начисления
-    nachisleniya_main()
-    # Количество проданных единиц
-    kol_vo_prod_ed_main()
+    # В КАРМАН
+    v_karman_main()
+    # # Налог
+    nalog_main()
+    # # # Прибыль
+    pribil_main()
+    # # # На РС
+    na_pc_main()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # # Прочие начисления
+    # prochie_nachisleniya_main()
+    # # Возвраты
+    # vozvrati_main()
+    
+    # # Количество проданных единиц
+    # kol_vo_prod_ed_main()
 
 def main():
+    print("\n== ПЕРИОД == с", start_date, "по", end_date)
     # заглушка
     # pass
-    # запуск отчета
-    # zapusk_otcheta()
     #____________________________________________________м
     # print("Загружаю данные из Excel в базу.")
     # load_excel_to_db(db_name, excel_file, table_name)

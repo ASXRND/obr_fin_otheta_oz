@@ -17,7 +17,6 @@ end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
 def get_sales_vyruchka():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -25,13 +24,11 @@ def get_sales_vyruchka():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
 def get_sales_skidki():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -39,13 +36,11 @@ def get_sales_skidki():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
 def get_sales_partners():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -53,7 +48,6 @@ def get_sales_partners():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
 # ________________________________________________________________________________
@@ -61,7 +55,6 @@ def get_sales_partners():
 def get_returns_vyruchka():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -69,13 +62,11 @@ def get_returns_vyruchka():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
 def get_returns_skidki():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -83,13 +74,11 @@ def get_returns_skidki():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
 def get_returns_partners():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -97,9 +86,18 @@ def get_returns_partners():
         AND DATE(accrual_date) BETWEEN '{start_date}' AND '{end_date}'
     """)
     result = cursor.fetchone()[0]
-
     conn.close()
     return result
+# Сумируем все вознаграждения Озон
+def proda_i_vozvrati_itog_main():
+    return (
+        get_sales_vyruchka()
+        + get_sales_skidki()
+        + get_sales_partners()
+        + get_returns_vyruchka()
+        + get_returns_skidki()
+        + get_returns_partners()
+    )
 
 def proda_i_vozvrati_main():
     sales_vyruchka = get_sales_vyruchka()
@@ -115,13 +113,20 @@ def proda_i_vozvrati_main():
     # Итого по возвратам
     total_returns = returns_vyruchka + returns_skidki + returns_partners
     itog = total_sales + total_returns
-    print("\n== ПЕРИОД == с", start_date, "по", end_date)
-    print("\n================= ПРОДАЖИ И ВОЗВРАТЫ =================", "\n")
+    print("\n================= ПРОДАЖИ И ВОЗВРАТЫ =================")
     print("Сумма:", itog, "\n")
-    print("ПРОДАЖИ:","\n", "\n Выручка", sales_vyruchka, "\n Баллы за скидки", sales_skidki, "\n Программы партнеров", sales_partners, "\n Итого продажи", total_sales, "\n")
-    print("ВОЗВРАТЫ:", "\n",  "\n Возврат выручки", returns_vyruchka, "\n Баллы за скидки", returns_skidki, "\n Программы партнеров", returns_partners, "\n Итого возврат выручки", total_returns)
+    print("","Продажи:", "Выручка", sales_vyruchka, "\n",
+              "Продажи:", "Баллы за скидки", sales_skidki, "\n", 
+              "Продажи:", "Программы партнеров", sales_partners, "\n", 
+              "Продажи:", "Итого продажи", total_sales)
+    print("","Возвраты:", "Возврат выручки", returns_vyruchka, "\n"
+              "","Возвраты:", "Баллы за скидки", returns_skidki, "\n" 
+              "","Возвраты:", "Программы партнеров", returns_partners, "\n" 
+              "","Возвраты:", "Итого возврат выручки", total_returns)
+    
 
-
+# if __name__ == "__main__":
+# 	proda_i_vozvrati_main()
 
 
 

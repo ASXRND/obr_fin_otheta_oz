@@ -48,7 +48,10 @@ def balli_za_skidki_main():
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
     itog = balli_za_skidki + balli_za_skidki_voz
-    print("\n================= БАЛЛЫ ЗА СКИДКИ =================", "\n")
+    print("\n================= БАЛЛЫ ЗА СКИДКИ =================")
     print("Сумма:", itog, "\n")
-    print("ПРОДАЖИ:", "\n", " \n Баллы за скидки", balli_za_skidki, "\n")
-    print("ВОЗВРАТЫ:","\n", " \n Баллы за скидки", balli_za_skidki_voz)
+    print("Продажи:", "Баллы за скидки", balli_za_skidki)
+    print("Возвраты:", "Баллы за скидки", balli_za_skidki_voz)
+
+if __name__ == "__main__":
+	balli_za_skidki_main()     

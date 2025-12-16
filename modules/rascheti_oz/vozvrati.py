@@ -66,9 +66,9 @@ def vozvrati_main():
     # РАСЧЁТЫ 
     # Итого по продажам
     itog = vozvrat_viruchki + programmi_partnerov + balli_za_skidki
-    print("\n================= ВОЗВРАТЫ =================", "\n")
+    print("\n================= ВОЗВРАТЫ =================")
     print("Сумма:", itog, "\n")
-    print("Возвраты:","\n", " \n Возврат выручки", vozvrat_viruchki, "\n")
-    print("Возвраты:","\n", " \n Программы партнёров", programmi_partnerov, "\n")
-    print("Возвраты:","\n", " \n Баллы за скидки", balli_za_skidki, "\n")
+    print("Возвраты:", "Возврат выручки", vozvrat_viruchki)
+    print("Возвраты:", "Программы партнёров", programmi_partnerov)
+    print("Возвраты:", "Баллы за скидки", balli_za_skidki)
     

@@ -53,7 +53,10 @@ def viruchka_main():
     # РАСЧЁТЫ 
     # Итого по продажам
     itog = sales_vyruchka + returns_vyruchka
-    print("\n================= ВЫРУЧКА =================", "\n")
+    print("\n================= ВЫРУЧКА =================")
     print("Сумма:", itog, "\n")
-    print("ПРОДАЖИ:","\n", " \n Выручка", sales_vyruchka, "\n")
-    print("ВОЗВРАТЫ:", "\n",  " \n Возврат выручки", returns_vyruchka)
+    print("Продажи:", "Выручка", sales_vyruchka)
+    print("Возвраты:", "Возврат выручки", returns_vyruchka)
+
+# if __name__ == "__main__":
+# 	viruchka_main()   

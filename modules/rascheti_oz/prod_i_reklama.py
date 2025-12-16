@@ -17,7 +17,6 @@ end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
 def get_oplata_za_clik():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -31,7 +30,6 @@ def get_oplata_za_clik():
 def get_balli_za_otzivi():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -40,7 +38,14 @@ def get_balli_za_otzivi():
     """)
     result = cursor.fetchone()[0]
     conn.close()
-    return result
+    return (result)
+
+# Сумируем все другие услуги
+def prod_i_reklama_itog_main():
+    return (
+        get_oplata_za_clik()
+        + get_balli_za_otzivi()
+    )
 
 # ЗАПУСК ФУНКЦИИ
 def prod_i_reklama_main():
@@ -49,9 +54,13 @@ def prod_i_reklama_main():
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
     # Итого по продажам
-    itog = oplata_za_clik + balli_za_otzivi
-    print("\n================= ПРОДВИЖЕНИЕ И РЕКЛАМА =================", "\n")
+    itog = (prod_i_reklama_itog_main())
+    print("\n================= ПРОДВИЖЕНИЕ И РЕКЛАМА =================")
     print("Сумма:", itog, "\n")
-    print("Продвижение и реклама:","\n", " \n Оплата за клик", oplata_za_clik, "\n")
-    print("Продвижение и реклама:", "\n",  " \n Баллы за отзывы", balli_za_otzivi, "\n")
-    return itog  # возвращаем переменную itog
+    print("Продвижение и реклама:", "Оплата за клик", oplata_za_clik)
+    print("Продвижение и реклама:", "Баллы за отзывы", balli_za_otzivi)
+
+
+if __name__ == "__main__":
+	prod_i_reklama_main()    
+    

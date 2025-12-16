@@ -52,7 +52,10 @@ def programmi_partnerov_main():
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
     itog = sales_partners + returns_partners
-    print("\n================= ПРОГРАММЫ ПАРТНЁРОВ =================","\n")
+    print("\n================= ПРОГРАММЫ ПАРТНЁРОВ =================")
     print("Сумма:", itog, "\n")
-    print("ПРОДАЖИ:", "\n", "\n Программы партнеров", sales_partners, "\n")
-    print("ВОЗВРАТЫ:", "\n", "\n Программы партнеров", returns_partners)
+    print("Продажи:", "Программы партнеров", sales_partners)
+    print("Возвраты:", "Программы партнеров", returns_partners)
+
+# if __name__ == "__main__":
+# 	programmi_partnerov_main()   

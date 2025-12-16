@@ -17,7 +17,6 @@ end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
 def get_vozn_za_proda():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -32,7 +31,6 @@ def get_vozn_za_proda():
 def get_vozvrat_voznag():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -43,15 +41,23 @@ def get_vozvrat_voznag():
     conn.close()
     return result
 
+# Сумируем все другие услуги
+def voznagr_ozon_itog_main():
+    return (
+        get_vozn_za_proda()
+        + get_vozvrat_voznag()
+    )
+
 # ЗАПУСК ФУНКЦИИ
-def voznagr_ozon_main():
+def voznagr_ozon_main(silent=False):
     vozn_za_proda = get_vozn_za_proda()
     vozvrat_voznag = get_vozvrat_voznag()
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
-    itog = vozn_za_proda + vozvrat_voznag
-    print("\n================= ВОЗНАГРАЖДЕНИЕ ОЗОН =================", "\n")
-    print("Сумма:", itog, "\n")
-    print("ВОЗНАГРАЖДЕНИЕ:", "\n", "\n", vozn_za_proda, "\n")
-    print("ВОЗВРАТ ВОЗНАГРАЖДЕНИЯ:", "\n" , vozvrat_voznag)
-    return itog  # возвращаем переменную itog
+    itog = (vozn_za_proda + vozvrat_voznag)
+    if not silent:
+        print("\n================= ВОЗНАГРАЖДЕНИЕ ОЗОН =================")
+        print("Сумма:", itog, "\n")
+        print("Вознаграждение:" , vozn_za_proda)
+        print("Возврат вознаграждения:" , vozvrat_voznag)
+    

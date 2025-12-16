@@ -17,7 +17,6 @@ end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
 def get_vzaim_raschet_mech_dogovorami():
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
     cursor.execute(f"""
         SELECT COALESCE(SUM(total_amount_rub),0)
         FROM '{table_name}'
@@ -28,15 +27,21 @@ def get_vzaim_raschet_mech_dogovorami():
     conn.close()
     return result
 
+
+def prochie_nachisleniya_itog_main():
+    return (
+        get_vzaim_raschet_mech_dogovorami()
+    )
+
 # ЗАПУСК ФУНКЦИИ
 def prochie_nachisleniya_main():
-    vzaim_raschet_mech_dogovorami = get_vzaim_raschet_mech_dogovorami()
-
-    # ________________________________________________________________________________
     # РАСЧЁТЫ 
     # Итого по продажам
-    itog = vzaim_raschet_mech_dogovorami
-    print("\n================= ПРОЧИЕ НАЧИСЛЕНИЯ =================", "\n")
+    itog = get_vzaim_raschet_mech_dogovorami()
+    print("\n================= ПРОЧИЕ НАЧИСЛЕНИЯ =================")
     print("Сумма:", itog, "\n")
-    print("Другие услуги:","\n", " \n Обработка операционных ошибок продавца: отгрузка в нерекомендованный слот", vzaim_raschet_mech_dogovorami, "\n")
+    print("Другие услуги:", "Обработка операционных ошибок продавца: отгрузка в нерекомендованный слот", itog)
     
+    
+# if __name__ == "__main__":
+# 	prochie_nachisleniya_main()     

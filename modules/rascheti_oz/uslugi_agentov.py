@@ -66,24 +66,38 @@ def get_obrat_vozv_i_omen():
     result = cursor.fetchone()[0]
     conn.close()
     return result
+# Сумируем все услуги агентов
+def uslugi_agentov_itog_main():
+    return (
+        get_okvairing()
+        + get_obrab_otpr_dropoff()
+        + get_dost_do_mest_vidachi()
+        + get_obrat_vozv_i_omen()
+    )
 
-def uslugi_agentov_main():
+def uslugi_agentov_main(silent=False):
     okvairing = get_okvairing()
     obrab_otpr_dropoff = get_obrab_otpr_dropoff()
     dost_do_mest_vidachi = get_dost_do_mest_vidachi()
     obrat_vozv_i_omen = get_obrat_vozv_i_omen()
     # ________________________________________________________________________________
     # РАСЧЁТЫ 
-    # Итого по продажам
-    total_sales = okvairing + obrab_otpr_dropoff + dost_do_mest_vidachi + obrat_vozv_i_omen
-    # Итого по возвратам
-    itog = total_sales
-    print("\n================= УСЛУГИ АГЕНТОВ =================", "\n")
+    # Итог
+    itog = (
+        okvairing
+        + obrab_otpr_dropoff
+        + dost_do_mest_vidachi
+        + obrat_vozv_i_omen
+    )
+    print("\n================= УСЛУГИ АГЕНТОВ =================")
     print("Сумма:", itog, "\n")
-    print("Услуги агентов:","\n", "\n Эквайринг", okvairing, "\n Обработка отправления Drop-off партнёрами (АПВЗ)", obrab_otpr_dropoff, "\n Доставка до места выдачи", dost_do_mest_vidachi, "\n Обработка возвратов, отмен и невыкупов партнёрами", obrat_vozv_i_omen, "\n")
-    return itog  # возвращаем переменную itog
+    print("", "Услуги агентов:", "Эквайринг", okvairing, "\n", 
+              "Услуги агентов:", "Обработка отправления Drop-off партнёрами (АПВЗ)", obrab_otpr_dropoff, "\n", 
+              "Услуги агентов:", " Доставка до места выдачи", dost_do_mest_vidachi, "\n", 
+              "Услуги агентов:", "Обработка возвратов, отмен и невыкупов партнёрами", obrat_vozv_i_omen)
+    
 
 # if __name__ == "__main__":
-#     uslugi_agentov_main()
+#     uslugi_agentov_itog_main()
   
 
