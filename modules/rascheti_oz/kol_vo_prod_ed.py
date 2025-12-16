@@ -102,17 +102,17 @@ def kol_vo_prod_ed_itog_main() -> float:
     # print("Себестоимость итог =", sebestoimost_itog)
     return sebestoimost_itog
 
-
-    
 # ===================== ОСНОВНОЙ ЗАПУСК =====================
 def kol_vo_prod_ed_main():
     load_kol_vo_as_globals()
 
     sebestoimost_itog = kol_vo_prod_ed_itog_main()
+    kol_vo_prod_ed = grey_big_holder + black_big_holder + brown_big_holder + white_big_holder + \
+                     yellow_merc_cap + white_merc_cap + red_merc_cap + white_black_merc_cap + black_oval_hooks_2
 
-    print("\n================= ПРОДАНО =================")
-    print("Себестоимость итог =", round(sebestoimost_itog, 2), "\n")
+    print("\n================= ПРОДАНО РУБ ЕД =================")
 
+    print("Себестоимость итог =", round(sebestoimost_itog), "Количесво единиц =", kol_vo_prod_ed, "\n")
     print("grey_big_holder:", grey_big_holder, "на сумму", grey_big_holder * sebestoimost_grey_big_holder)
     print("black_big_holder:", black_big_holder, "на сумму", black_big_holder * sebestoimost_black_big_holder)
     print("brown_big_holder:", brown_big_holder, "на сумму", brown_big_holder * sebestoimost_brown_big_holder)
@@ -124,5 +124,5 @@ def kol_vo_prod_ed_main():
     print("black_oval_hooks_2:", black_oval_hooks_2, "на сумму", black_oval_hooks_2 * sebestoimost_black_oval_hooks_2)
 
 # ===================== ENTRY POINT =====================
-# if __name__ == "__main__":
-#     kol_vo_prod_ed_itog_main()
+if __name__ == "__main__":
+    kol_vo_prod_ed_main()

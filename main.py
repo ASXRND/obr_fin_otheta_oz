@@ -60,6 +60,8 @@ start_date = f"{start[6:]}-{start[3:5]}-{start[:2]}"  # 2025-11-01
 end_date   = f"{end[6:]}-{end[3:5]}-{end[:2]}"        # 2025-11-30
 
 def zapusk_otcheta():
+    # Количество проданных единиц
+    kol_vo_prod_ed_main()
     # Продажи и возвраты
     proda_i_vozvrati_main()
     # Выручка
@@ -74,6 +76,8 @@ def zapusk_otcheta():
     voznagr_ozon_main()
     # Услуги агентов
     uslugi_agentov_main()
+    # Возвраты
+    vozvrati_main()
     # Продвижение и реклама
     prod_i_reklama_main()
     # Услуги доставки
@@ -82,6 +86,8 @@ def zapusk_otcheta():
     uslugi_fbo_main()
     # Другие услуги
     drugie_uslugi_main()
+    # Прочие начисления
+    prochie_nachisleniya_main()
     # В КАРМАН
     v_karman_main()
     # # Налог
@@ -90,23 +96,6 @@ def zapusk_otcheta():
     pribil_main()
     # # # На РС
     na_pc_main()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # # Прочие начисления
-    # prochie_nachisleniya_main()
-    # # Возвраты
-    # vozvrati_main()
-    
-    # # Количество проданных единиц
-    # kol_vo_prod_ed_main()
 
 def main():
     print("\n== ПЕРИОД == с", start_date, "по", end_date)
